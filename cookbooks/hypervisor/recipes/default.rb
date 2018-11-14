@@ -17,19 +17,15 @@ git "#{node['hypervisor']['runhyve_prefix']}/vm-bhyve" do
   action :sync
 end
 
-
 git "#{node['hypervisor']['runhyve_prefix']}/vm-webhooks" do
   repository node['hypervisor']['repo']['vm-webhooks']
   revision 'master'
   action :sync
+  notifies :restart, 'service[webhook]', :immediately
 end
 
 link '/usr/local/etc/vm-webhooks.json' do
   to '/opt/runhyve/vm-webhooks/vm-webhooks.json'
-end
-
-service 'nginx' do
-  action [:enable, :start]
 end
 
 service 'webhook' do
@@ -38,10 +34,45 @@ service 'webhook' do
   action [:enable, :start]
 end
 
+template '/usr/local/etc/nginx/nginx.conf' do
+  owner 'root'
+  group 'wheel'
+  mode '0644'
+  notifies :restart, 'service[nginx]', :immediately
+end
+
+service 'nginx' do
+  action [:enable, :start]
+end
+
+template '/etc/rc.conf.local' do
+  owner 'root'
+  group 'wheel'
+  mode '0640'
+  notifies :restart, 'service[webhook]', :immediately
+end
+
+
+template '/usr/local/etc/dnsmasq.conf' do
+  owner 'root'
+  group 'wheel'
+  mode '0640'
+  notifies :restart, 'service[dnsmasq]', :immediately
+end
+
 service 'dnsmasq' do
   action [:enable, :start]
 end
 
 service 'netdata' do
   action [:enable, :start]
+end
+
+service 'sysctl'
+
+template '/etc/sysctl.conf.local' do
+  owner 'root'
+  group 'wheel'
+  mode '0640'
+  notifies :restart, 'service[sysctl]', :immediately
 end

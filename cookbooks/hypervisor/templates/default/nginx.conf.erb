@@ -1,0 +1,68 @@
+worker_processes  4;
+
+events {
+    worker_connections  1024;
+}
+
+http {
+    include       mime.types;
+    default_type  application/octet-stream;
+    sendfile        on;
+    keepalive_timeout  65;
+
+    server {
+        server_name "~^port(?P<forwarded_port>\d{5})\.192.168.0.197\.xip\.io$";
+        access_log  /var/log/nginx/vm-webhook-gotty-proxy.log;
+        location  / {
+            proxy_set_header Authorization "Basic $1";
+            rewrite ^/(.*)/tty/?$ / break;
+            rewrite ^/(.*)/tty/(.*)$ /$2 break;
+            proxy_pass http://127.0.0.1:$forwarded_port;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $remote_addr;
+            proxy_set_header Host $host;
+            proxy_http_version 1.1;
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection "upgrade";
+            add_header 'Access-Control-Allow-Origin' 'http://localhost:4000';
+            add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+            add_header 'Access-Control-Allow-Headers' 'Authorization';
+            add_header 'Access-Control-Allow-Credentials' 'true';
+            if ($request_method = 'OPTIONS') {
+                add_header 'Access-Control-Allow-Origin' 'http://localhost:4000';
+                add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+                add_header 'Access-Control-Allow-Headers' 'Authorization';
+                add_header 'Access-Control-Allow-Credentials' 'true';
+                add_header 'Access-Control-Max-Age' 1728000;
+                add_header 'Content-Type' 'text/plain; charset=utf-8';
+                add_header 'Content-Length' 0;
+                return 204;
+            }
+        }
+    }
+
+    upstream backend {
+        # the netdata server
+        server 127.0.0.1:19999;
+        keepalive 64;
+    }
+    
+    server {
+        # nginx listens to this
+        listen 80;
+    
+        # the virtual host name of this
+        server_name netdata.192.168.0.197.xip.io;
+    
+        location / {
+            proxy_set_header X-Forwarded-Host $host;
+            proxy_set_header X-Forwarded-Server $host;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_pass http://backend;
+            proxy_http_version 1.1;
+            proxy_pass_request_headers on;
+            proxy_set_header Connection "keep-alive";
+            proxy_store off;
+        }
+    }
+}
