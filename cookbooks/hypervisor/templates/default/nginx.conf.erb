@@ -11,7 +11,7 @@ http {
     keepalive_timeout  65;
 
     server {
-        server_name "~^port(?P<forwarded_port>\d{5})\.192.168.0.197\.xip\.io$";
+        server_name "~^port(?P<forwarded_port>\d{5})\.<%= node['ipaddress'] %>\.xip\.io$";
         access_log  /var/log/nginx/vm-webhook-gotty-proxy.log;
         location  / {
             proxy_set_header Authorization "Basic $1";
@@ -52,7 +52,7 @@ http {
         listen 80;
     
         # the virtual host name of this
-        server_name netdata.192.168.0.197.xip.io;
+        server_name netdata.<%= node['ipaddress'] %>.xip.io;
     
         location / {
             proxy_set_header X-Forwarded-Host $host;
