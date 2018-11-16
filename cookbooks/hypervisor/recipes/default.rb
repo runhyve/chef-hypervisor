@@ -34,6 +34,12 @@ service 'webhook' do
   action [:enable, :start]
 end
 
+directory '/usr/local/etc/nginx/' do
+  owner 'root'
+  group 'wheel'
+  mode '0755'
+end
+
 template '/usr/local/etc/nginx/nginx.conf' do
   owner 'root'
   group 'wheel'
