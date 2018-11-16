@@ -17,6 +17,10 @@ git "#{node['hypervisor']['runhyve_prefix']}/vm-bhyve" do
   action :sync
 end
 
+file "#{node['hypervisor']['runhyve_prefix']}/vm-bhyve/vm" do
+  mode '0755'
+end
+
 git "#{node['hypervisor']['runhyve_prefix']}/vm-webhooks" do
   repository node['hypervisor']['repo']['vm-webhooks']
   revision 'master'
