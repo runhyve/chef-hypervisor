@@ -28,6 +28,12 @@ git "#{node['hypervisor']['runhyve_prefix']}/vm-webhooks" do
   notifies :restart, 'service[webhook]', :immediately
 end
 
+execute 'vm-init' do
+  command './vm init'
+  cwd "#{node['hypervisor']['runhyve_prefix']}/vm-bhyve/"
+  creates "/zroot/vm"
+end
+
 link '/usr/local/etc/vm-webhooks.json' do
   to '/opt/runhyve/vm-webhooks/vm-webhooks.json'
 end
