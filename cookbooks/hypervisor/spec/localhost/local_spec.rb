@@ -48,3 +48,15 @@ end
 describe zfs('zroot') do
   it { should exist }
 end
+
+describe file('/zroot/vm/.config') do
+  it { should be_directory }
+end
+
+describe file('/zroot/vm/.config/dnsmasq') do
+  it { should be_directory }
+end
+
+describe file('/zroot/vm/.config/pf-nat') do
+  it { should be_directory }
+end
