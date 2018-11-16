@@ -94,3 +94,17 @@ template '/etc/sysctl.conf.local' do
   mode '0640'
   notifies :restart, 'service[sysctl]', :immediately
 end
+
+directory '/zroot/vm/.templates' do
+  owner 'root'
+  group 'wheel'
+  mode '0750'
+end
+
+%w[freebsd-1C-1024MB-50HDD.conf ubuntu-1C-1024MB-50HDD.conf].each do |template|
+  template "/zroot/vm/.templates/#{template}" do
+    owner 'root'
+    group 'wheel'
+    mode '0644'
+  end
+end
