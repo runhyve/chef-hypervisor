@@ -58,6 +58,14 @@ template '/etc/rc.conf.local' do
   notifies :restart, 'service[webhook]', :immediately
 end
 
+%w[dnsmasq pf-nat pf-security].each do |dir|
+  directory "/zroot/vm/.config/#{dir}/" do
+    owner 'root'
+    group 'wheel'
+    mode '0750'
+    recursive true
+  end
+end
 
 template '/usr/local/etc/dnsmasq.conf' do
   owner 'root'
