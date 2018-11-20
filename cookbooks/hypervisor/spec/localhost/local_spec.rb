@@ -21,7 +21,7 @@ end
 describe port(9090) do
   it { should be_listening }
   it { should be_listening.with('tcp') }
-  it { should be_listening.on('0.0.0.0') }
+  it { should be_listening.on('127.0.0.1') }
 end
 
 describe port(19999) do
