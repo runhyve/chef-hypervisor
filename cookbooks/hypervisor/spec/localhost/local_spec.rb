@@ -13,6 +13,11 @@ describe file('/usr/local/etc/nginx/.runhyvetoken') do
   it { should be_mode 600 }
 end
 
+describe file('/usr/local/etc/nginx/nginx.conf') do
+  it { should be_file }
+  it { should be_mode 600 }
+end
+
 describe service('nginx') do
   it { should be_running }
   it { should be_enabled }

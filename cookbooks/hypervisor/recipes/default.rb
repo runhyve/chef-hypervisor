@@ -62,7 +62,7 @@ end
 template '/usr/local/etc/nginx/nginx.conf' do
   owner 'root'
   group 'wheel'
-  mode '0644'
+  mode '0600'
   notifies :restart, 'service[nginx]', :immediately
 end
 
