@@ -44,6 +44,21 @@ directory '/usr/local/etc/nginx/' do
   mode '0755'
 end
 
+ruby_block 'generate_random_token' do
+  block do
+    require 'securerandom'
+    token = SecureRandom.uuid
+    File.write('/usr/local/etc/nginx/.runhyvetoken', token)
+  end
+  not_if { File.exist?('/usr/local/etc/nginx/.runhyvetoken') }
+end
+
+file '/usr/local/etc/nginx/.runhyvetoken' do
+  owner 'root'
+  group 'wheel'
+  mode '0600'
+end
+
 template '/usr/local/etc/nginx/nginx.conf' do
   owner 'root'
   group 'wheel'

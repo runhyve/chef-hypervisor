@@ -8,6 +8,11 @@ describe file('/usr/local/etc/vm-webhooks.json') do
   it { should be_linked_to '/opt/runhyve/vm-webhooks/vm-webhooks.json' }
 end
 
+describe file('/usr/local/etc/nginx/.runhyvetoken') do
+  it { should be_file }
+  it { should be_mode 600 }
+end
+
 describe service('nginx') do
   it { should be_running }
   it { should be_enabled }
@@ -16,6 +21,10 @@ end
 describe service('webhook') do
   it { should be_running }
   it { should be_enabled }
+end
+
+describe command("fetch http://vm-webhook.#{host_inventory['ohai']['ipaddress']}.xip.io") do
+  its(:stderr) { should match /Forbidden/ }
 end
 
 describe port(9090) do
