@@ -18,6 +18,10 @@ describe file('/usr/local/etc/nginx/nginx.conf') do
   it { should be_mode 600 }
 end
 
+describe command('nginx -t') do
+  its(:exit_status) { should eq 0 }
+end
+
 describe service('nginx') do
   it { should be_running }
   it { should be_enabled }
