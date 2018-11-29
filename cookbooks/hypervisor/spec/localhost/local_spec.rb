@@ -63,6 +63,11 @@ describe command('sysctl -n net.inet.ip.forwarding') do
   its(:exit_status) { should eq 0 }
 end
 
+describe command('sysctl -n kern.random.harvest.mask') do
+  its(:stdout) { should eq "351\n" }
+  its(:exit_status) { should eq 0 }
+end
+
 describe zfs('zroot') do
   it { should exist }
 end

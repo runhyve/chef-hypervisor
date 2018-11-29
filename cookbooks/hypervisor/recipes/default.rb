@@ -13,7 +13,7 @@ end
 
 git "#{node['hypervisor']['runhyve_prefix']}/vm-bhyve" do
   repository node['hypervisor']['repo']['vm-bhyve']
-  revision 'master'
+  revision 'runhyve'
   action :sync
 end
 
@@ -70,11 +70,16 @@ service 'nginx' do
   action [:enable, :start]
 end
 
+service 'random' do
+  action [:enable, :start]
+end
+
 template '/etc/rc.conf.local' do
   owner 'root'
   group 'wheel'
   mode '0640'
   notifies :restart, 'service[webhook]', :immediately
+  notifies :restart, 'service[random]', :immediately
 end
 
 execute 'vm-init' do
