@@ -1,5 +1,14 @@
 chef_gem 'serverspec'
 
+zfs 'zroot/vm' do
+  properties [
+    { mountpoint: '/zroot/vm' },
+    { compression: 'lz4' },
+    { atime: 'off' }
+  ]
+  action :create
+end
+
 node['hypervisor']['packages'].each do |pkg|
   package pkg
 end
