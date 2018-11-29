@@ -79,9 +79,7 @@ service 'nginx' do
   action [:enable, :start]
 end
 
-service 'random' do
-  action [:enable, :start]
-end
+service 'random'
 
 template '/etc/rc.conf.local' do
   owner 'root'

@@ -72,6 +72,11 @@ describe zfs('zroot') do
   it { should exist }
 end
 
+describe zfs('zroot/vm') do
+  it { should exist }
+  it { should have_property 'mountpoint' => '/zroot/vm', 'compression' => 'lz4', 'atime' => 'off' }
+end
+
 describe file('/zroot/vm/.config') do
   it { should be_directory }
 end

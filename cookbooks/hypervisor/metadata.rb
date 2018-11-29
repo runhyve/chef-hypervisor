@@ -11,3 +11,5 @@ issues_url 'https://gitlab.com/runhyve/chef-hypervisor/issues'
 source_url 'https://gitlab.com/runhyve/chef-hypervisor/master'
 
 supports 'freebsd'
+
+depends 'chef_zfs'
