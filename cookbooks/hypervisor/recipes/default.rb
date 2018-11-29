@@ -100,6 +100,7 @@ end
     owner 'root'
     group 'wheel'
     mode '0750'
+    recursive true
   end
 end
 
