@@ -80,6 +80,7 @@ service 'nginx' do
 end
 
 service 'random'
+service 'kld'
 
 template '/etc/rc.conf.local' do
   owner 'root'
@@ -87,6 +88,7 @@ template '/etc/rc.conf.local' do
   mode '0640'
   notifies :restart, 'service[webhook]', :immediately
   notifies :restart, 'service[random]', :immediately
+  notifies :restart, 'service[kld]', :immediately
 end
 
 execute 'vm-init' do

@@ -68,6 +68,11 @@ describe command('sysctl -n kern.random.harvest.mask') do
   its(:exit_status) { should eq 0 }
 end
 
+describe command('kldstat') do
+  its(:stdout) { should match /nmdm/ }
+  its(:stdout) { should match /vmm/ }
+end
+
 describe zfs('zroot') do
   it { should exist }
 end
