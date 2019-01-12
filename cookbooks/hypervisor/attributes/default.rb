@@ -1,4 +1,4 @@
-default['hypervisor']['packages'] = %w[webhook gotty jo jq bash dnsmasq gnu-ipcalc git netdata nginx qemu-utils pwgen ts grub2-bhyve uefi-edk2-bhyve]
+default['hypervisor']['packages'] = %w[webhook gotty jo jq bash dnsmasq gnu-ipcalc git netdata nginx qemu-utils pwgen ts grub2-bhyve uefi-edk2-bhyvei vm-bhyve]
 default['hypervisor']['runhyve_prefix'] = '/opt/runhyve'
 default['hypervisor']['repo']['vm-bhyve'] = 'https://github.com/runhyve/vm-bhyve.git'
 default['hypervisor']['repo']['vm-webhooks'] = 'https://gitlab.com/runhyve/vm-webhooks.git'
