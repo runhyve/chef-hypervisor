@@ -68,7 +68,7 @@ http {
     }
     
     server {
-        ssl_certificate_key <%= node['hypervisor']['tls_key'] %>;
+        include ./tls-nginx-fixture.conf;
         server_name vm-webhook.<%= node['hypervisor']['http_host'] %>;
         location / {
             if ($http_X_RUNHYVE_TOKEN != '<%= ::File.read('/usr/local/etc/nginx/.runhyvetoken') %>') {
