@@ -11,7 +11,7 @@ http {
     keepalive_timeout  65;
 
     server {
-        server_name "~^port(?P<forwarded_port>\d{5})\.<%= node['ipaddress'] %>\.xip\.io$";
+        server_name "~^port(?P<forwarded_port>\d{5})\.<%= node['hypervisor']['http_host'] %>$";
         access_log  /var/log/nginx/vm-webhook-gotty-proxy.log;
         location  / {
             proxy_set_header Authorization "Basic $1";
@@ -48,7 +48,7 @@ http {
     
     server {
         listen 80;
-        server_name netdata.<%= node['ipaddress'] %>.xip.io;
+        server_name netdata.<%= node['hypervisor']['http_host'] %>;
         location / {
             proxy_set_header X-Forwarded-Host $host;
             proxy_set_header X-Forwarded-Server $host;
@@ -68,7 +68,7 @@ http {
     
     server {
         listen 80;
-        server_name vm-webhook.<%= node['ipaddress'] %>.xip.io;
+        server_name vm-webhook.<%= node['hypervisor']['http_host'] %>;
         location / {
             if ($http_X_RUNHYVE_TOKEN != '<%= ::File.read('/usr/local/etc/nginx/.runhyvetoken') %>') {
               return 403;
