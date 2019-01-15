@@ -9,6 +9,7 @@ default['hypervisor']['runhyve']['cloud-images'] = [
 default['hypervisor']['use_xip'] = false
 default['hypervisor']['http_host'] = node['hypervisor']['use_xip'] ? "#{node['ipaddress']}.xip.io" : "#{node['fqdn']}"
 
-default['hypervisor']['tls'] = false
-default['hypervisor']['tls_cert'] = '/etc/ssl/selfsigned.crt'
-default['hypervisor']['tls_key'] = '/etc/ssl/selfsigned.key'
+default['hypervisor']['tls']['enable'] = false
+default['hypervisor']['tls']['generate_selfsigned'] = false
+default['hypervisor']['tls']['cert'] = '/etc/ssl/selfsigned.crt'
+default['hypervisor']['tls']['key'] = '/etc/ssl/selfsigned.key'

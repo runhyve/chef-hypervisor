@@ -1,8 +1,8 @@
 listen 443 ssl http2;
 listen [::]:443 ssl http2;
 
-ssl_certificate <%= node['hypervisor']['tls_cert'] %>;
-ssl_certificate_key <%= node['hypervisor']['tls_key'] %>;
+ssl_certificate <%= node['hypervisor']['tls']['cert'] %>;
+ssl_certificate_key <%= node['hypervisor']['tls']['key'] %>;
 
 ssl_session_timeout 1d;
 ssl_session_cache shared:SSL:50m;

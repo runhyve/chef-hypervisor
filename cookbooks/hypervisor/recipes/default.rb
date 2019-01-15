@@ -68,12 +68,13 @@ file '/usr/local/etc/nginx/.runhyvetoken' do
   mode '0600'
 end
 
-openssl_x509_certificate node['hypervisor']['tls_cert'] do
-  key_file node['hypervisor']['tls_key']
+openssl_x509_certificate node['hypervisor']['tls']['cert'] do
+  key_file node['hypervisor']['tls']['key']
   common_name node['hypervisor']['http_host']
   expire 365
   subject_alt_name ["IP:#{node['ipaddress']}", "DNS:*.#{node['fqdn']}"]
   notifies :restart, 'service[nginx]', :immediately
+  only_if { node['hypervisor']['tls']['enable'] && node['hypervisor']['tls']['generate_selfsigned'] }
 end
 
 template '/usr/local/etc/nginx/tls-nginx-fixture.conf' do
@@ -84,7 +85,7 @@ template '/usr/local/etc/nginx/tls-nginx-fixture.conf' do
 end
 
 template '/usr/local/etc/nginx/nginx.conf' do
-  source node['hypervisor']['tls'] ? 'tls-nginx.conf.erb' : 'nginx.conf.erb'
+  source node['hypervisor']['tls']['enable'] ? 'tls-nginx.conf.erb' : 'nginx.conf.erb'
   owner 'root'
   group 'wheel'
   mode '0600'
