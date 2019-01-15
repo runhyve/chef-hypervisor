@@ -4,7 +4,7 @@ maintainer_email 'mateusz@runateam.com'
 license 'All Rights Reserved'
 description 'Configures bhyve hypervisor'
 long_description 'Configures bhyve hypervisor'
-version '0.1.0'
+version '0.1.1'
 chef_version '>= 14.7' if respond_to?(:chef_version)
 
 issues_url 'https://gitlab.com/runhyve/chef-hypervisor/issues'

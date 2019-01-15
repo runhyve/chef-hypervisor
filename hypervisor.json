@@ -1,3 +1,6 @@
 {
+  "hypervisor": {
+    "use_xip": true
+  },
   "run_list": [ "recipe[hypervisor]" ]
 }
