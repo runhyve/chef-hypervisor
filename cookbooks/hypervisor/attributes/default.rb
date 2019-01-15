@@ -7,5 +7,8 @@ default['hypervisor']['runhyve']['cloud-images'] = [
 'https://cloud-images.ubuntu.com/xenial/current/xenial-server-cloudimg-amd64-uefi1.img'
 ]
 default['hypervisor']['use_xip'] = true
-
 default['hypervisor']['http_host'] = default['hypervisor']['use_xip'] ? "#{node['ipaddress']}.xip.io" : "#{node['fqdn']}"
+
+default['hypervisor']['tls'] = false
+default['hypervisor']['tls_cert'] = '/etc/ssl/selfsigned.crt'
+default['hypervisor']['tls_key'] = '/etc/ssl/selfsigned.key'
