@@ -3,3 +3,6 @@ chef-client-running.pid
 chef-stacktrace.out
 nodes
 cookbooks/chef_zfs/
+chef-*.amd64.sh
+data_collector_metadata.json
+local-mode-cache/
