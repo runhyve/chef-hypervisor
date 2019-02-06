@@ -153,7 +153,7 @@ directory '/zroot/vm/.templates' do
   mode '0750'
 end
 
-%w[freebsd.conf linux.conf].each do |template|
+%w[freebsd.conf linux.conf fedora.conf].each do |template|
   template "/zroot/vm/.templates/#{template}" do
     owner 'root'
     group 'wheel'
