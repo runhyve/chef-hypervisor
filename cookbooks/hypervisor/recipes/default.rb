@@ -85,7 +85,6 @@ template '/usr/local/etc/nginx/tls-nginx-fixture.conf' do
 end
 
 template '/usr/local/etc/nginx/nginx.conf' do
-  source node['hypervisor']['tls']['enable'] ? 'tls-nginx.conf.erb' : 'nginx.conf.erb'
   owner 'root'
   group 'wheel'
   mode '0600'

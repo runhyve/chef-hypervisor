@@ -9,6 +9,11 @@ http {
     default_type  application/octet-stream;
     sendfile        on;
     keepalive_timeout  65;
+    
+    server {
+         server_name <%= node['fqdn'] %>;
+         root /usr/local/www/nginx-dist;
+    }
 
     server {
         include ./tls-nginx-fixture.conf;
