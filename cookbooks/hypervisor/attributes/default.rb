@@ -13,3 +13,4 @@ default['hypervisor']['tls']['enable'] = false
 default['hypervisor']['tls']['generate_selfsigned'] = false
 default['hypervisor']['tls']['cert'] = '/etc/ssl/selfsigned.crt'
 default['hypervisor']['tls']['key'] = '/etc/ssl/selfsigned.key'
+default['hypervisor']['lego_version'] = '2.2.0'

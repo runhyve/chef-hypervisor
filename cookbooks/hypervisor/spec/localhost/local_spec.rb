@@ -13,6 +13,10 @@ describe file('/usr/local/etc/nginx/.runhyvetoken') do
   it { should be_mode 600 }
 end
 
+describe file('/opt/runhyve/lego') do
+  it { should be_executable }
+end
+
 describe file('/usr/local/etc/nginx/nginx.conf') do
   it { should be_file }
   it { should be_mode 600 }
