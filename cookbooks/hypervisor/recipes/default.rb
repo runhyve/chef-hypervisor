@@ -47,7 +47,7 @@ end
 bash 'extract-lego' do
   cwd node['hypervisor']['runhyve_prefix']
   code <<-EOH
-    tar zxvf #{node['hypervisor']['runhyve_prefix']}/lego-v{node['hypervisor']['lego_version']}.tgz
+    tar zxvf #{node['hypervisor']['runhyve_prefix']}/lego-v#{node['hypervisor']['lego_version']}.tgz
   EOH
   action :nothing
 end
