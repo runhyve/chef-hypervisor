@@ -37,6 +37,21 @@ git "#{node['hypervisor']['runhyve_prefix']}/vm-webhooks" do
   notifies :restart, 'service[webhook]', :immediately
 end
 
+remote_file "#{node['hypervisor']['runhyve_prefix']}/lego-v#{node['hypervisor']['lego_version']}.tgz" do
+  source "https://github.com/xenolf/lego/releases/download/v#{node['hypervisor']['lego_version']}/lego_v#{node['hypervisor']['lego_version']}_freebsd_amd64.tar.gz"
+  owner 'root'
+  group 'wheel'
+  notifies :run, 'bash[extract-lego]', :immediately
+end
+
+bash 'extract-lego' do
+  cwd node['hypervisor']['runhyve_prefix']
+  code <<-EOH
+    tar zxvf #{node['hypervisor']['runhyve_prefix']}/lego-v#{node['hypervisor']['lego_version']}.tgz
+  EOH
+  action :nothing
+end
+
 link '/usr/local/etc/vm-webhooks.json' do
   to '/opt/runhyve/vm-webhooks/vm-webhooks.json'
 end
@@ -85,7 +100,6 @@ template '/usr/local/etc/nginx/tls-nginx-fixture.conf' do
 end
 
 template '/usr/local/etc/nginx/nginx.conf' do
-  source node['hypervisor']['tls']['enable'] ? 'tls-nginx.conf.erb' : 'nginx.conf.erb'
   owner 'root'
   group 'wheel'
   mode '0600'
