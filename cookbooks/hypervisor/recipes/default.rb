@@ -37,7 +37,7 @@ git "#{node['hypervisor']['runhyve_prefix']}/vm-webhooks" do
   notifies :restart, 'service[webhook]', :immediately
 end
 
-remote_file "#{node['hypervisor']['runhyve_prefix']}/lego-v{node['hypervisor']['lego_version']}.tgz" do
+remote_file "#{node['hypervisor']['runhyve_prefix']}/lego-v#{node['hypervisor']['lego_version']}.tgz" do
   source "https://github.com/xenolf/lego/releases/download/v#{node['hypervisor']['lego_version']}/lego_v#{node['hypervisor']['lego_version']}_freebsd_amd64.tar.gz"
   owner 'root'
   group 'wheel'
