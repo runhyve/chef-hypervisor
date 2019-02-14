@@ -18,9 +18,9 @@ http {
 
     server {
         listen <%= node['hypervisor']['tls']['enable'] ? 443 : 80 %>;
-        <%= if node['hypervisor']['tls']['enable'] %>
+        <% if node['hypervisor']['tls']['enable'] %>
         include ./tls-nginx-fixture.conf;
-        <%= end %>
+        <% end %>
         server_name "~^port(?P<forwarded_port>\d{5})\.<%= node['hypervisor']['http_host'] %>$";
         access_log  /var/log/nginx/vm-webhook-gotty-proxy.log;
         location  / {
@@ -58,9 +58,9 @@ http {
     
     server {
         listen <%= node['hypervisor']['tls']['enable'] ? 443 : 80 %>;
-        <%= if node['hypervisor']['tls']['enable'] %>
+        <% if node['hypervisor']['tls']['enable'] %>
         include ./tls-nginx-fixture.conf;
-        <%= end %>
+        <% end %>
         server_name netdata.<%= node['hypervisor']['http_host'] %>;
         location / {
             proxy_set_header X-Forwarded-Host $host;
@@ -81,9 +81,9 @@ http {
     
     server {
         listen <%= node['hypervisor']['tls']['enable'] ? 443 : 80 %>;
-        <%= if node['hypervisor']['tls']['enable'] %>
+        <% if node['hypervisor']['tls']['enable'] %>
         include ./tls-nginx-fixture.conf;
-        <%= end %>
+        <% end %>
         server_name vm-webhook.<%= node['hypervisor']['http_host'] %>;
         location / {
             if ($http_X_RUNHYVE_TOKEN != '<%= ::File.read('/usr/local/etc/nginx/.runhyvetoken') %>') {
