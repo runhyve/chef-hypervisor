@@ -14,7 +14,7 @@ http {
         <% if node['hypervisor']['tls']['enable'] %>
         include ./tls-nginx-fixture.conf;
         <%else %>
-        listen 80 http2;
+        listen 80;
         <% end %>
         server_name <%= node['fqdn'] %>;
         root /usr/local/www/nginx-dist;
@@ -24,7 +24,7 @@ http {
         <% if node['hypervisor']['tls']['enable'] %>
         include ./tls-nginx-fixture.conf;
         <%else %>
-        listen 80 http2;
+        listen 80;
         <% end %>
         server_name "~^port(?P<forwarded_port>\d{5})\.<%= node['hypervisor']['http_host'] %>$";
         access_log  /var/log/nginx/vm-webhook-gotty-proxy.log;
@@ -60,12 +60,12 @@ http {
         server 127.0.0.1:19999;
         keepalive 64;
     }
-    
+
     server {
         <% if node['hypervisor']['tls']['enable'] %>
         include ./tls-nginx-fixture.conf;
         <%else %>
-        listen 80 http2;
+        listen 80;
         <% end %>
         server_name netdata.<%= node['hypervisor']['http_host'] %>;
         location / {
@@ -84,12 +84,12 @@ http {
         server 127.0.0.1:9090;
         keepalive 64;
     }
-    
+
     server {
         <% if node['hypervisor']['tls']['enable'] %>
         include ./tls-nginx-fixture.conf;
         <%else %>
-        listen 80 http2;
+        listen 80;
         <% end %>
         server_name vm-webhook.<%= node['hypervisor']['http_host'] %>;
         location / {
