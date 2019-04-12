@@ -22,7 +22,7 @@ end
 
 git "#{node['hypervisor']['runhyve_prefix']}/vm-bhyve" do
   repository node['hypervisor']['repo']['vm-bhyve']
-  revision 'runhyve'
+  revision 'master'
   action :sync
 end
 
