@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe file('/opt/runhyve/vm-bhyve/vm') do
+describe file('/usr/local/sbin/vm') do
   it { should be_executable }
 end
 
