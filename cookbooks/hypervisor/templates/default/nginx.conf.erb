@@ -93,7 +93,7 @@ http {
         <% end %>
         server_name vm-webhook.<%= node['hypervisor']['http_host'] %>;
         location / {
-            if ($http_X_RUNHYVE_TOKEN != '<%= ::File.read('/usr/local/etc/nginx/.runhyvetoken') %>') {
+            if ($http_X_RUNHYVE_TOKEN != '<%= ::File.read('/usr/local/etc/nginx/.runhyvetoken').chomp %>') {
               return 403;
             }
             proxy_set_header X-Forwarded-Host $host;
