@@ -1,6 +1,6 @@
 ## Provision bhyve hypervisor
 
-Clone this repositor and run installation script:
+Clone this repository and run installation script:
 `sudo ./install.sh`
 The script will install Chef and apply Cookbook on current host
 
