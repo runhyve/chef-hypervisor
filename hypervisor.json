@@ -1,6 +1,10 @@
 {
   "hypervisor": {
-    "use_xip": true
+    "use_xip": true,
+    "zfs": {
+      "filesystem": "zroot/vm",
+      "mountpoint": "/vm"
+    }
   },
   "run_list": [ "recipe[hypervisor]" ]
 }

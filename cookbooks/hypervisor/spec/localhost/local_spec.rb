@@ -77,23 +77,19 @@ describe command('kldstat') do
   its(:stdout) { should match /vmm/ }
 end
 
-describe zfs('zroot') do
+describe zfs($node['hypervisor']['zfs']['filesystem']) do
   it { should exist }
+  it { should have_property 'mountpoint' => "#{$node['hypervisor']['zfs']['mountpoint']}", 'compression' => 'lz4', 'atime' => 'off' }
 end
 
-describe zfs('zroot/vm') do
-  it { should exist }
-  it { should have_property 'mountpoint' => '/zroot/vm', 'compression' => 'lz4', 'atime' => 'off' }
-end
-
-describe file('/zroot/vm/.config') do
+describe file("#{$node['hypervisor']['zfs']['mountpoint']}/.config") do
   it { should be_directory }
 end
 
-describe file('/zroot/vm/.config/dnsmasq') do
+describe file("#{$node['hypervisor']['zfs']['mountpoint']}/.config/dnsmasq") do
   it { should be_directory }
 end
 
-describe file('/zroot/vm/.config/pf-nat') do
+describe file("#{$node['hypervisor']['zfs']['mountpoint']}/.config/pf-nat") do
   it { should be_directory }
 end

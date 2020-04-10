@@ -6,3 +6,4 @@ cookbooks/chef_zfs/
 chef-*.amd64.sh
 data_collector_metadata.json
 local-mode-cache/
+remote_file
