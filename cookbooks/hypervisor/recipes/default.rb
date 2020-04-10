@@ -1,8 +1,8 @@
 chef_gem 'serverspec'
 
-zfs 'zroot/vm' do
+zfs node['hypervisor']['zfs']['filesystem'] do
   properties [
-    { mountpoint: '/zroot/vm' },
+    { mountpoint: "#{node['hypervisor']['zfs']['mountpoint']}" },
     { compression: 'lz4' },
     { atime: 'off' }
   ]
@@ -114,11 +114,11 @@ end
 
 execute 'vm-init' do
   command 'vm init'
-  creates "/zroot/vm"
+  creates "#{node['hypervisor']['zfs']['mountpoint']}"
 end
 
 %w[dnsmasq pf-nat pf-security].each do |dir|
-  directory "/zroot/vm/.config/#{dir}/" do
+  directory "#{node['hypervisor']['zfs']['mountpoint']}/.config/#{dir}/" do
     owner 'root'
     group 'wheel'
     mode '0750'
@@ -150,16 +150,18 @@ template '/etc/sysctl.conf.local' do
   notifies :restart, 'service[sysctl]', :immediately
 end
 
-directory '/zroot/vm/.templates' do
+directory "#{node['hypervisor']['zfs']['mountpoint']}/.templates" do
   owner 'root'
   group 'wheel'
   mode '0750'
 end
 
 %w[bhyveload.conf grub.conf uefi-csm.conf].each do |template|
-  template "/zroot/vm/.templates/#{template}" do
+  template "#{node['hypervisor']['zfs']['mountpoint']}/.templates/#{template}" do
     owner 'root'
     group 'wheel'
     mode '0644'
   end
 end
+
+include_recipe '::dump_attributes'
