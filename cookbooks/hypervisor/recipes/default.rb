@@ -58,6 +58,12 @@ directory '/usr/local/etc/nginx/' do
   mode '0755'
 end
 
+directory '/var/run/runhyve/' do
+  owner 'root'
+  group 'wheel'
+  mode '0750'
+end
+
 ruby_block 'generate_random_token' do
   block do
     require 'securerandom'
