@@ -1,6 +1,6 @@
 #!/bin/sh
 
-CHEF_VERSION=15.8.23
+CHEF_VERSION=16.9.20
 CHEF_URL="https://packages.chef.io/files/stable/chef/${CHEF_VERSION}/freebsd/12/chef-${CHEF_VERSION}_1.amd64.sh"
 
 if [ "$(id -u)" != 0 ]; then
