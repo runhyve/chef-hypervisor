@@ -1,6 +1,6 @@
 chef_gem 'serverspec'
 
-zfs node['hypervisor']['zfs']['filesystem'] do
+chef_zfs node['hypervisor']['zfs']['filesystem'] do
   properties [
     { mountpoint: "#{node['hypervisor']['zfs']['mountpoint']}" },
     { compression: 'lz4' },
