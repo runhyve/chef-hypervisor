@@ -1,7 +1,7 @@
 name 'hypervisor'
 maintainer 'Mateusz Kwiatkowski'
 maintainer_email 'mateusz@runateam.com'
-license 'All Rights Reserved'
+license 'BSD'
 description 'Configures bhyve hypervisor'
 long_description 'Configures bhyve hypervisor'
 version '0.1.3'
