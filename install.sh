@@ -23,7 +23,7 @@ fi
 if [ ! -d ./cookbooks/chef_zfs ]; then
   git clone https://github.com/chef-cookbooks/chef_zfs.git ./cookbooks/chef_zfs
 else
-  (cd ./cookbooks/chef_zfs; git pull)
+  (cd ./cookbooks/chef_zfs; git pull --ff-only)
 fi
 
 chef-solo -c solo.rb -j hypervisor.json
