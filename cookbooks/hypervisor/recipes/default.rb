@@ -13,6 +13,24 @@ node['hypervisor']['packages'].each do |pkg|
   package pkg
 end
 
+git "#{node['hypervisor']['runhyve_prefix']}/vm-bhyve" do
+  repository node['hypervisor']['repo']['vm-bhyve']
+  revision 'master'
+  action :sync
+end
+
+file "#{node['hypervisor']['runhyve_prefix']}/vm-bhyve/vm" do
+  mode '0755'
+end
+
+link '/usr/local/bin/vm' do
+  to "#{node['hypervisor']['runhyve_prefix']}/vm-bhyve/vm"
+end
+
+link '/usr/local/lib/vm-bhyve' do
+  to "#{node['hypervisor']['runhyve_prefix']}/vm-bhyve/lib"
+end
+
 directory node['hypervisor']['runhyve_prefix'] do
   user 'root'
   group 'wheel'
