@@ -18,6 +18,7 @@ directory node['hypervisor']['runhyve_prefix'] do
   group 'wheel'
   mode '0755'
   action :create
+  recursive true
 end
 
 git "#{node['hypervisor']['runhyve_prefix']}/vm-webhooks" do
